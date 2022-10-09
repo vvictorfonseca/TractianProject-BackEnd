@@ -1,0 +1,65 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("MONGO_URL")
+}
+
+model Company {
+  id       String    @id @default(auto()) @map("_id") @db.ObjectId
+  name     String
+  isAdm    Boolean   @default(false)
+
+  users    User[]
+  units    Unit[]
+}
+
+model User {
+  id       String    @id @default(auto()) @map("_id") @db.ObjectId
+  fullName String
+  email    String    @unique
+  password String
+  isAdm      Boolean   @default(false)
+
+  companyId String   @db.ObjectId
+  company   Company  @relation(fields: [companyId], references: [id])
+}
+
+model Unit {
+  id       String    @id @default(auto()) @map("_id") @db.ObjectId
+  name     String
+
+  companyId String   @db.ObjectId
+  company   Company  @relation(fields: [companyId], references: [id])
+  assets    Asset[]
+}
+
+model Asset {
+  id       String    @id @default(auto()) @map("_id") @db.ObjectId
+  name     String
+  image    String
+  model    String
+  owner    String
+  description String
+  status   Status    @default(Running)
+  healthLevel Int
+
+  unitId   String    @db.ObjectId
+  unit     Unit      @relation(fields: [unitId], references: [id])
+}
+
+enum Status {
+  Running
+  Alerting
+  Stopped
+}
+
+enum Adm {
+  False
+  True
+}
