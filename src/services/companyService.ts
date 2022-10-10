@@ -20,10 +20,32 @@ async function getCompanyById(companyId: string) {
   return company
 }
 
+async function getAllInfosBycompanyId(companyId: string) {
+  const company = await companyRepository.getAllInfosBycompanyId(companyId)
+  console.log("company", company)
+
+  const unitCount = company.units.length
+  const usersCount = company.users.length
+  let assetsCount = 0
+
+  company.units.forEach((info) => (assetsCount = info.assets.length))
+
+  const companyInfos = {
+    unitCount,
+    usersCount,
+    assetsCount
+  }
+
+  console.log("counts", companyInfos)
+
+  return companyInfos
+}
+
 const companyService = {
   createNewCompany,
   getCompanies,
-  getCompanyById
+  getCompanyById,
+  getAllInfosBycompanyId
 }
 
 export default companyService

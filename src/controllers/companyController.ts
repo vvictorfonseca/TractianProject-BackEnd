@@ -26,4 +26,12 @@ async function getCompanyById(req: Request, res: Response) {
   return res.status(200).send(company)
 }
 
-export { createNewCompany, getCompanies, getCompanyById }
+async function getAllInfosBycompanyId(req: Request, res: Response) {
+  const companyId: string = req.params.companyId
+
+  const companyCountInfo = await companyService.getAllInfosBycompanyId(companyId)
+
+  return res.status(200).send(companyCountInfo)
+}
+
+export { createNewCompany, getCompanies, getCompanyById, getAllInfosBycompanyId }

@@ -12,7 +12,20 @@ async function getUnitsByCompanyId(companyId: string) {
     },
     select: {
       id: true,
-      name: true
+      name: true,
+
+      assets: {
+        select: {
+          id: true,
+          name: true,
+          image: true,
+          model: true,
+          owner: true,
+          description: true,
+          status: true,
+          healthLevel: true
+        }
+      }
     }
   })
 

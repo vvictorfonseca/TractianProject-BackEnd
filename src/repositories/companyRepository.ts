@@ -29,10 +29,52 @@ async function getCompanyById(companyId: string) {
   return company
 }
 
+async function getAllInfosBycompanyId(companyId: string) {
+  const company = await prisma.company.findFirst({
+    where: {
+      id: companyId
+    },
+    select: {
+      id: true,
+      name: true,
+      isAdm: true,
+
+      users: {
+        select: {
+          fullName: true
+        }
+      },
+
+      units: {
+        select: {
+          id: true,
+          name: true,
+
+          assets: {
+            select: {
+              id: true,
+              name: true,
+              image: true,
+              model: true,
+              owner: true,
+              description: true,
+              status: true,
+              healthLevel: true
+            }
+          }
+        }
+      }
+    }
+  })
+
+  return company
+}
+
 const companyRepository = {
   createNewCompany,
   getCompanies,
-  getCompanyById
+  getCompanyById,
+  getAllInfosBycompanyId
 }
 
 export default companyRepository
