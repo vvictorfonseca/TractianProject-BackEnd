@@ -22,21 +22,22 @@ async function getCompanyById(companyId: string) {
 
 async function getAllInfosBycompanyId(companyId: string) {
   const company = await companyRepository.getAllInfosBycompanyId(companyId)
-  console.log("company", company)
 
   const unitCount = company.units.length
   const usersCount = company.users.length
   let assetsCount = 0
 
-  company.units.forEach((info) => (assetsCount = info.assets.length))
+  company.units.forEach((info) => {
+    info.assets.forEach((info) => {
+      info.id ? assetsCount ++ : null
+    })
+  })
 
   const companyInfos = {
     unitCount,
     usersCount,
     assetsCount
   }
-
-  console.log("counts", companyInfos)
 
   return companyInfos
 }

@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import userService, { CreateUserData, CreateLoginData } from "../services/userService.js";
+import companyService, { CreateCompanyData } from "../services/companyService.js";
 
 async function createNewUser(req: Request, res: Response) {
   const newUser: CreateUserData = req.body
@@ -48,4 +49,20 @@ async function loginUser(req: Request, res: Response) {
   return res.status(200).send({...user, token})
 }
 
-export { createNewUser, loginAdm, loginUser }
+async function getUserByName(req: Request, res: Response) {
+  const name: string = req.params.name
+
+  const userName = await userService.getUserByName(name)
+  const userStatus = userName.isAdm
+  const companyId = userName.companyId
+
+  const company = await companyService.getCompanyById(companyId)
+
+  return res.status(200).send({
+    status: userStatus,
+    companyId: companyId,
+    name: company.name
+  })
+}
+
+export { createNewUser, loginAdm, loginUser, getUserByName }

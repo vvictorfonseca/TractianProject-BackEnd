@@ -46,10 +46,17 @@ async function getUserByEmail(email: string) {
   return user
 }
 
+async function getUserByName(name: string) {
+  const user = await userRepository.getUserByName(name)
+
+  return user
+}
+
 const userService = {
   createNewUser,
   loginUser,
-  getUserByEmail
+  getUserByEmail,
+  getUserByName
 }
 
 export default userService

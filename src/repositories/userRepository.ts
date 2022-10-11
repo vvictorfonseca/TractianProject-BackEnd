@@ -15,9 +15,20 @@ async function getUserByEmail(email: string) {
   return user
 }
 
+async function getUserByName(name: string) {
+  const user = await prisma.user.findFirst({
+    where: {
+      fullName: name
+    }
+  })
+
+  return user
+}
+
 const userRepository = {
   createNewUser,
-  getUserByEmail
+  getUserByEmail,
+  getUserByName
 }
 
 export default userRepository
