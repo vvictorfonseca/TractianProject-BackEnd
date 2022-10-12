@@ -4,7 +4,7 @@ import { CreateAssetData } from "../services/assetService.js"
 const assetSchema = Joi.object<CreateAssetData>({
   name: Joi.string().min(4).required(),
   image: Joi.string().required(),
-  model: Joi.string().required(),
+  model: Joi.string().min(4).required(),
   owner: Joi.string().required(),
   description: Joi.string().min(8).required(),
   status: Joi.valid("Running", "Alerting", "Stopped").required(),
