@@ -12,5 +12,4 @@ companyRouter.get("/get/companies", getCompanies);
 companyRouter.get("/get/:companyId", validateToken, getCompanyById)
 companyRouter.get("/get/countInfos/:companyId",validateToken, getAllInfosBycompanyId)
 
-
 export default companyRouter;

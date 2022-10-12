@@ -1,5 +1,5 @@
 import prisma from "../database.js";
-import { CreateAssetData } from "../services/assetService.js";
+import { CreateAssetData, UpdateAssetData, UpdateStatusData } from "../services/assetService.js";
 
 async function createNewAsset(newAsset: CreateAssetData) {
   await prisma.asset.create({ data: newAsset })
@@ -34,10 +34,38 @@ async function deleteAssetById(assetId: string) {
   })
 }
 
+async function updateHealthLevel(updateAsset: UpdateAssetData) {
+  const updateLevel = await prisma.asset.update({
+    where: {
+      id: updateAsset.id
+    },
+    data: {
+      healthLevel: updateAsset.healthLevel
+    }
+  })
+
+  return updateLevel
+}
+
+async function updateStatus(updateAsset: UpdateStatusData) {
+  const updateStatus = await prisma.asset.update({
+    where: {
+      id: updateAsset.id
+    },
+    data: {
+      status: updateAsset.status
+    }
+  })
+
+  return updateStatus
+}
+
 const assetRepository = {
   createNewAsset,
   getAssetsByUnitId,
-  deleteAssetById
+  deleteAssetById,
+  updateHealthLevel,
+  updateStatus
 }
 
 export default assetRepository

@@ -38,12 +38,11 @@ async function getUnitsByCompanyId(companyId: string) {
 }
 
 async function deleteUnitById(unitId: string) {
-  const unit = await prisma.unit.findFirst({
+  return await prisma.unit.delete({
     where: {
       id: unitId
     }
   })
-  return unit
 }
 
 const unitRepository = {

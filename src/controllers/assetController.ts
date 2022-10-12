@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import assetService, { CreateAssetData } from "../services/assetService.js";
+import assetService, { CreateAssetData, UpdateAssetData, UpdateStatusData } from "../services/assetService.js";
 
 async function createNewAsset(req: Request, res: Response) {
   const newAsset: CreateAssetData = req.body
@@ -25,4 +25,22 @@ async function deleteAssetById(req: Request, res: Response) {
   return res.sendStatus(201)
 }
 
-export { createNewAsset, getAssetsByUnitId, deleteAssetById }
+async function updateHealthLevel(req: Request, res: Response) {
+  const updateAsset: UpdateAssetData = req.body
+
+  await assetService.updateHealthLevel(updateAsset)
+
+  return res.sendStatus(201)
+}
+
+async function updateStatus(req: Request, res: Response) {
+  const updateStatus: UpdateStatusData = req.body
+
+  await assetService.updateStatus(updateStatus)
+
+  return res.sendStatus(201)
+}
+
+
+
+export { createNewAsset, getAssetsByUnitId, deleteAssetById, updateHealthLevel, updateStatus }

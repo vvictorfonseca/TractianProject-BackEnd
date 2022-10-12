@@ -15,9 +15,7 @@ async function getUnitsByCompanyId(companyId: string) {
 }
 
 async function deleteUnitById(unitId: string) {
-  const unit = await unitRepository.deleteUnitById(unitId)
-
-  return unit
+  return await unitRepository.deleteUnitById(unitId)
 }
 
 const unitService = {

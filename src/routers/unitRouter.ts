@@ -9,6 +9,6 @@ const unitRouter = Router();
 
 unitRouter.post("/create/unit", validateToken, validateSchema(unitSchema), createNewUnit);
 unitRouter.get("/get/units/:companyId", validateToken, getUnitsByCompanyId);
-unitRouter.delete("/delete/:unitId", validateToken, deleteUnitById)
+unitRouter.delete("/delete/unit/:unitId", validateToken, deleteUnitById)
 
 export default unitRouter;

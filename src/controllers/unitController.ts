@@ -1,4 +1,5 @@
 import { Request, Response } from "express";
+import unitRepository from "../repositories/unitRepository.js";
 import unitService, { CreateUnitData } from "../services/unitService.js";
 
 async function createNewUnit(req: Request, res: Response) {
@@ -18,12 +19,11 @@ async function getUnitsByCompanyId(req: Request, res: Response) {
 }
 
 async function deleteUnitById(req: Request, res: Response) {
-  console.log("entrou aqui")
   const unitId: string = req.params.unitId
 
-  await unitService.deleteUnitById(unitId)
+  await unitRepository.deleteUnitById(unitId)
 
-  return res.sendStatus(201)
+  return res.sendStatus(200)
 }
 
 export { createNewUnit, getUnitsByCompanyId, deleteUnitById }
