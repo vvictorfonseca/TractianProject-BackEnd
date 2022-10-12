@@ -14,9 +14,14 @@ async function getAssetsByUnitId(unitId: string) {
   return assets
 }
 
+async function deleteAssetById(assetId: string) {
+  return await assetRepository.deleteAssetById(assetId)
+}
+
 const assetService = {
   createNewAsset,
-  getAssetsByUnitId
+  getAssetsByUnitId,
+  deleteAssetById
 }
 
 export default assetService

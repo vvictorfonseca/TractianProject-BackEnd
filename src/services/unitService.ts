@@ -14,9 +14,16 @@ async function getUnitsByCompanyId(companyId: string) {
   return units
 }
 
+async function deleteUnitById(unitId: string) {
+  const unit = await unitRepository.deleteUnitById(unitId)
+
+  return unit
+}
+
 const unitService = {
   createNewUnit,
-  getUnitsByCompanyId
+  getUnitsByCompanyId,
+  deleteUnitById
 }
 
 export default unitService

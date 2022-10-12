@@ -26,9 +26,18 @@ async function getAssetsByUnitId(unitId: string) {
   return assets
 }
 
+async function deleteAssetById(assetId: string) {
+  return await prisma.asset.delete({
+    where: {
+      id: assetId
+    }
+  })
+}
+
 const assetRepository = {
   createNewAsset,
-  getAssetsByUnitId
+  getAssetsByUnitId,
+  deleteAssetById
 }
 
 export default assetRepository

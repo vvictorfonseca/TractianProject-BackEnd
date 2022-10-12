@@ -17,4 +17,12 @@ async function getAssetsByUnitId(req:Request, res: Response) {
   return res.status(200).send(assets)
 }
 
-export { createNewAsset, getAssetsByUnitId }
+async function deleteAssetById(req: Request, res: Response) {
+  const assetId: string = req.params.assetId
+
+  await assetService.deleteAssetById(assetId)
+
+  return res.sendStatus(201)
+}
+
+export { createNewAsset, getAssetsByUnitId, deleteAssetById }

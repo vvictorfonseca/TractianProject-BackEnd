@@ -18,12 +18,17 @@ async function getUnitsByCompanyId(companyId: string) {
         select: {
           id: true,
           name: true,
-          image: true,
-          model: true,
-          owner: true,
           description: true,
+          owner: true,
+          healthLevel: true,
           status: true,
-          healthLevel: true
+          unitId: true,
+          model: true,
+          unit: {
+            select: {
+              name: true
+            }
+          }
         }
       }
     }
@@ -32,9 +37,19 @@ async function getUnitsByCompanyId(companyId: string) {
   return units
 }
 
+async function deleteUnitById(unitId: string) {
+  const unit = await prisma.unit.findFirst({
+    where: {
+      id: unitId
+    }
+  })
+  return unit
+}
+
 const unitRepository = {
   createNewUnit,
-  getUnitsByCompanyId
+  getUnitsByCompanyId,
+  deleteUnitById
 }
 
 export default unitRepository

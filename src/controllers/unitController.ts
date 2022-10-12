@@ -17,4 +17,13 @@ async function getUnitsByCompanyId(req: Request, res: Response) {
   return res.status(200).send(units)
 }
 
-export { createNewUnit, getUnitsByCompanyId }
+async function deleteUnitById(req: Request, res: Response) {
+  console.log("entrou aqui")
+  const unitId: string = req.params.unitId
+
+  await unitService.deleteUnitById(unitId)
+
+  return res.sendStatus(201)
+}
+
+export { createNewUnit, getUnitsByCompanyId, deleteUnitById }
